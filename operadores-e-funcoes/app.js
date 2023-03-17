@@ -13,36 +13,44 @@ const operations = `
 ---- Informe o número da operação desejada: ----
 `;
 
+const validateInformedNumber = (number) => {
+    const result = Number.parseFloat(number);
+
+    if (!result) {
+        console.log('O número informado não é válido!');
+    }
+    return result;
+}
 let result = 0;
 
 console.log('---- CALCULADORA ----');
 
 readLine.question('\nInforme o primeiro número: ', numberOne => {
-    readLine.question('Informe o segundo número: ', numberTwo => {
-        numberOne = parseInt(numberOne);
-        numberTwo = parseInt(numberTwo);
+    const numberOneValidated = validateInformedNumber(numberOne);
 
-        readLine.question(`${operations}`, operations => {
-            switch (parseInt(operations)) {
-                case 1:
-                    result = numberOne + numberTwo;
-                    break;
-                case 2:
-                    result = numberOne - numberTwo;
-                    break;
-                case 3:
-                    result = numberOne * numberTwo;
-                    break;
-                case 4:
-                    result = numberOne / numberTwo;
-                    break;
-                case 5:
-                    result = numberOne % numberTwo;
-                    break;
-                default:
-                    console.log('Operação Inválida!');
+    if (numberOneValidated) {
+        readLine.question('Informe o segundo número: ', numberTwo => {
+            const numberTwoValidated = validateInformedNumber(numberTwo);
+
+            if (numberTwoValidated) {
+                readLine.question(`${operations}`, operations => {
+                    switch (parseInt(operations)) {
+                        case 1: result = numberOneValidated + numberTwoValidated;
+                            break;
+                        case 2: result = numberOneValidated - numberTwoValidated;
+                            break;
+                        case 3: result = numberOneValidated * numberTwoValidated;
+                            break;
+                        case 4: result = numberOneValidated / numberTwoValidated;
+                            break;
+                        case 5: result = numberOneValidated % numberTwoValidated;
+                            break;
+                        default:
+                            console.log('Operação Inválida!');
+                    }
+                    return console.log(`\nO resultado da conta é: ${result}`);
+                });
             }
-            return console.log(`\nO resultado da conta é: ${result}`);
         });
-    });
+    }
 });
