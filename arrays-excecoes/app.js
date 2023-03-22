@@ -1,5 +1,3 @@
-const { log } = require("console");
-
 try {
     const listaProdutosDisponiveis = [
         "Pão",
